@@ -19,3 +19,8 @@ git pull
 git fetch
 git merge
 git merge <branch-name>
+
+Revert and Reset:
+git reset --soft <commit#>
+git reset --hard <commit#>
+git revert <commit#>
