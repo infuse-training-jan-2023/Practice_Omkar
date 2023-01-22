@@ -13,3 +13,9 @@ git branch <branch-name>
 git switch <branch-name>
 git checkout -b <branch-name>
 git branch -d <branch-name>
+
+Advance commands:
+git pull
+git fetch
+git merge
+git merge <branch-name>
