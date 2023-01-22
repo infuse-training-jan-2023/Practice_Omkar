@@ -33,3 +33,7 @@ git stash apply <stash-name>
 git stash push <stash-name>
 git stash pop <stash-name>
 git stash drop <stash-name>
+
+Other commands:
+git cherry-pick <commit#>
+git rebase <branch-name>
