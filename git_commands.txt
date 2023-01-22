@@ -1,0 +1,7 @@
+git init
+git remote add origin <repo-url>
+git clone <repo-url>
+git add <file-name(s)>
+git commit -m "Commit message"
+git push -u origin <remote-branch-name>
+git status
