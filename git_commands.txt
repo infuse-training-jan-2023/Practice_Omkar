@@ -20,7 +20,16 @@ git fetch
 git merge
 git merge <branch-name>
 
-Revert and Reset:
+Revert and Reset commands:
 git reset --soft <commit#>
 git reset --hard <commit#>
 git revert <commit#>
+
+Stash commands:
+git stash
+git stash list
+git stash show <stash-name>
+git stash apply <stash-name>
+git stash push <stash-name>
+git stash pop <stash-name>
+git stash drop <stash-name>
