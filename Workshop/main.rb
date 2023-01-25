@@ -126,13 +126,11 @@ class Target
 		framework.sleep_for(2)
 		items = framework.find_elements_by_class("lonabl")
 		for i in 1..items.length-1 do
-			puts i
 			cross = framework.find_elements_by_class("ktUJeX", items[i])[0]
 			btn = framework.find_elements_by_tag_name("button", cross)[0]
-			puts btn
 			framework.click_element(btn)
 		end
-		sleep(2)
+		framework.sleep_for(2)
 	end
 
 	def logout()
@@ -148,11 +146,11 @@ end
 
 target = Target.new
 target.open_website()
-# login_check = target.check_for_login()
-# if login_check == 1
-# 	puts target.register()
-# 	puts target.login()
-# end
+login_check = target.check_for_login()
+if login_check == 1
+	puts target.register()
+	puts target.login()
+end
 str = "Tshirt Men"
 product = target.search_product(str)
 target.add_to_cart(product)
@@ -160,5 +158,5 @@ str = "Shirt Men"
 product = target.search_product(str)
 target.add_to_cart(product)
 target.empty_cart()
-# target.logout()
+target.logout()
 sleep(5)

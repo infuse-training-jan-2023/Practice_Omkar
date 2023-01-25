@@ -21,7 +21,7 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 	rm -rf /var/lib/apt/lists/*
 
 FROM base as test
-CMD ["ruby", "framework.rb"]
+CMD ["ruby", "test_framework.rb"]
 
 FROM base as run
-CMD ["ruby", "automate.rb"]
+CMD ["ruby", "main.rb"]
