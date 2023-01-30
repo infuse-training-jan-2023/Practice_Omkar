@@ -1,9 +1,9 @@
 let body = document.getElementsByTagName("body")[0];
-let hours = document.getElementById("hr");
-let minutes = document.getElementById("min");
-let seconds = document.getElementById("sec");
+const hours = document.getElementById("hr");
+const minutes = document.getElementById("min");
+const seconds = document.getElementById("sec");
 
-function displayDate() {
+const displayDate = () => {
     let now = new Date();
     let hr = now.getHours();
     let min = now.getMinutes();
