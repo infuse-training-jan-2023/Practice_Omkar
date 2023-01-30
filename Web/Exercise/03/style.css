@@ -49,6 +49,13 @@ nav ul {
 
 nav li {
 	font-size: 20px;
+	padding-left: 10px;
+}
+
+nav li:hover {
+	background-color: skyblue;
+	color: white;
+	border-left: 5px solid darkblue;
 }
 
 nav span {
