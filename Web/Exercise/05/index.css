@@ -6,7 +6,7 @@
 
 body {
 	width: 100vw;
-	height: 100vh;
+	/* height: 100vh; */
 	display: flex;
 	background-color: black;
 	color: white;
@@ -41,11 +41,6 @@ main {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 	gap: 5px;
-}
-
-.card {
-	border: 1px solid white;
-	height: 250px;
 }
 
 .image img {
@@ -88,7 +83,10 @@ aside {
 
 iframe {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
+	top: 0;
+	position: sticky;
+	
 }
 
 @media screen and  (max-width: 1280px) {
@@ -128,6 +126,10 @@ iframe {
 	aside {
 		width: 50%;
 		float: left;
+	}
+
+	iframe {
+		height: 100vh;
 	}
 
 	#options {

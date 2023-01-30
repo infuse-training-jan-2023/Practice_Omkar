@@ -29,12 +29,10 @@ function cardGenerator({id, name, height, weight, base_experience, stats, sprite
     let p6 = document.createElement("p");
     p6.innerText = "Hp: " + stats[0].base_stat;
 
-    data.appendChild(p1);
-    data.appendChild(p2);
-    data.appendChild(p3);
-    data.appendChild(p4);
-    data.appendChild(p5);
-    data.appendChild(p6);
+    let p_elements = [p1, p2, p3, p4, p5, p6];
+    for (let i = 0; i < p_elements.length; i++) {
+        data.appendChild(p_elements[i]);
+    }
 
     card.appendChild(image);
     card.appendChild(data);
@@ -58,9 +56,9 @@ function cardGenerator({id, name, height, weight, base_experience, stats, sprite
 }
 
 function sortPokemon() {
-    let x = document.getElementById("atrb").value;
+    let option = document.getElementById("atrb").value;
     all_pokemon.sort((a, b) => {
-        switch (x) {
+        switch (option) {
             case "2": {
                 return (parseInt(a.weight) - parseInt(b.weight)); // weight
             }
@@ -80,9 +78,7 @@ function sortPokemon() {
 
 function searchPokemon() {
     let search = document.getElementsByTagName("input")[0].value;
-    let search_cards = all_pokemon.filter(pokemon => {
-        return pokemon.name.startsWith(search);
-    });
+    let search_cards = all_pokemon.filter(pokemon => pokemon.name.startsWith(search));
     document.getElementById("card-container").innerHTML = "";
     search_cards.forEach(pokemon => {
         cardGenerator(pokemon);
@@ -90,16 +86,16 @@ function searchPokemon() {
 }
 
 async function fetchPokemon(pokemon_url) {
-    let pokemon_data = await fetch(pokemon_url);
-    pokemon_data = await pokemon_data.json();
+    let response = await fetch(pokemon_url);
+    pokemon_data = await response.json();
     all_pokemon.push(pokemon_data);
     cardGenerator(pokemon_data);
     sortPokemon();
 }
 
 async function fetchData(base_url) {
-    let pokemons = await fetch(base_url);
-    pokemons = await pokemons.json();
+    let response = await fetch(base_url);
+    pokemons = await response.json();
     let results = pokemons.results;
     results.forEach(element => {
         fetchPokemon(element.url);
