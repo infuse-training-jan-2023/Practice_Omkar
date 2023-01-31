@@ -2,25 +2,24 @@
 require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
 
-class Prob09
-	def get_column
+class Columns
+	def get_column(j)
 		driver = Selenium::WebDriver.for :chrome
 		driver.get("https://computer-database.gatling.io/computers")
-		j = 1 # col value
-		j = j-1
 		thead = driver.find_element(tag_name: 'thead')
 		tr = thead.find_element(tag_name: 'tr')
 		ths = tr.find_elements(tag_name: 'th')
-		print("\n", ths[j].text)
+		puts ths[j-1].text
 		tbody = driver.find_element(tag_name: 'tbody')
 		trs = tbody.find_elements(tag_name: 'tr')
 		trs.each{ |tr|
 			tds = tr.find_elements(tag_name: 'td')
-			print("\n", tds[j].text)
+			puts tds[j-1].text
 		}
 		driver.quit
 	end
 end
 
-prob = Prob09.new
-prob.get_column
+columns = Columns.new
+col_val = 1
+columns.get_column(col_val)

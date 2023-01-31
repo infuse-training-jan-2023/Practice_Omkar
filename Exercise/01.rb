@@ -2,7 +2,7 @@
 require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
 
-class Prob01
+class OpenBrowser
 	def open_browser
 		driver = Selenium::WebDriver.for :chrome
 		driver.manage.window.maximize
@@ -10,5 +10,5 @@ class Prob01
 	end
 end
 
-prob = Prob01.new
-prob.open_browser
+openBrowser = OpenBrowser.new
+openBrowser.open_browser

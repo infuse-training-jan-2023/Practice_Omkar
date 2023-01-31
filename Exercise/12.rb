@@ -1,11 +1,16 @@
 # Automate a website taking advantage of many selenium functions.
 require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
-driver = Selenium::WebDriver.for :chrome
 
-class Prob12
-	def open_browser(driver)
-		driver.get("https://www.swiggy.com/")
+class Automate_Website
+	attr_accessor :driver
+
+	def initialize
+		@driver = Selenium::WebDriver.for :chrome
+	end
+
+	def open_browser(url)
+		driver.get(url)
 		driver.manage.window.maximize
 		search = driver.find_elements(class: "Al5GE")
 		if search.length
@@ -18,7 +23,7 @@ class Prob12
 		sleep(2)
 	end
 
-	def search_Biryani(driver)
+	def search_Biryani()
 		nav = driver.find_element(class: "_1JNGZ")
 		search = nav.find_elements(tag_name: "li")
 		search = search[4]
@@ -30,7 +35,7 @@ class Prob12
 		sleep(2)
 	end
 
-	def select_filters(driver)
+	def select_filters()
 		filters = driver.find_element(class: "Facets_wrapper__ogDKN")
 		divs = filters.find_elements(tag_name: "div")
 		sleep(2)
@@ -45,13 +50,13 @@ class Prob12
 		sleep(2)
 	end
 
-	def control_pop_up(driver)
+	def control_pop_up()
 		popup = driver.find_elements(class: "_1Kr-y")
 		btn = popup[0].find_element(class: "_3coNr")
 		btn.click
 	end
 
-	def add_product(driver)
+	def add_product()
 		rests = driver.find_element(class: "_2NSqs")
 		rest = rests.find_element(class: "_1RPOp")
 		rest.click
@@ -65,7 +70,7 @@ class Prob12
 		sleep(2)
 	end
 
-	def check_more_items(driver)
+	def check_more_items()
 		driver.execute_script("window.scrollTo(0, 900)")
 		menu = driver.find_elements(class: "styles_label__3kDB0")
 		btn = menu[1].find_element(tag_name: "button")
@@ -73,15 +78,16 @@ class Prob12
 		sleep(2)
 	end
 
-	def close_browser(driver)
+	def close_browser()
 		driver.close
 	end
 end
 
-prob = Prob12.new()
-prob.open_browser(driver)
-prob.search_Biryani(driver)
-prob.select_filters(driver)
-prob.add_product(driver)
-prob.check_more_items(driver)
-prob.close_browser(driver)
+swiggy = Automate_Website.new()
+url = "https://www.swiggy.com/"
+swiggy.open_browser(url)
+swiggy.search_Biryani()
+swiggy.select_filters()
+swiggy.add_product()
+swiggy.check_more_items()
+swiggy.close_browser()

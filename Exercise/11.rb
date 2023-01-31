@@ -2,22 +2,20 @@
 require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
 
-class Prob11
-	def get_cell_value
+class GetCell
+	def get_cell_value(i, j)
 		driver = Selenium::WebDriver.for :chrome
 		driver.get("https://the-internet.herokuapp.com/tables")
-		i = 1 # row value
-		i = i - 1
-		j = 1 # col value
-		j = j-1
 		table = driver.find_element(tag_name: 'tbody')
 		trs = table.find_elements(tag_name: 'tr')
-		tr = trs[i]
+		tr = trs[i-1]
 		tds = tr.find_elements(tag_name: 'td')
-		print(tds[j].text)
+		print(tds[j-1].text)
 		driver.quit
 	end
 end
 
-prob = Prob11.new
-prob.get_cell_value
+getCell = GetCell.new
+row_val = 1
+col_val = 1
+getCell.get_cell_value(row_val, col_val)

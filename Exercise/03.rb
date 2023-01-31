@@ -1,15 +1,16 @@
 # Write a script to click a button.
 require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
-class Prob03
+
+class ClickButton
 	def click_button
 		driver = Selenium::WebDriver.for :chrome
 		driver.get("https://www.amazon.in/")
-		btn = driver.find_element(id: 'nav-search-submit-button')
-		btn.click
+		submit_button = driver.find_element(id: 'nav-search-submit-button')
+		submit_button.click
 		driver.quit
 	end
 end
 
-prob = Prob03.new
-prob.click_button
+click = ClickButton.new
+click.click_button
