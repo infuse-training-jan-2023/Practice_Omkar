@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                bat 'mkdir Expt2'
+                bat 'cd Expt2'
+                bat 'type nul > abc.txt'
+                bat 'echo Hello World >> abc.txt'
+            }
+        }
+    }
+}
