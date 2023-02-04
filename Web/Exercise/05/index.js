@@ -1,7 +1,7 @@
 let container = document.getElementById("card-container");
-let base_url = "https://pokeapi.co/api/v2/pokemon";
+let baseUrl = "https://pokeapi.co/api/v2/pokemon";
 let offset = 0;
-let all_pokemon = [];
+let allPokemon = [];
 
 function cardGenerator({id, name, height, weight, base_experience, stats, sprites}) {
     let card = document.createElement("div");
@@ -29,8 +29,8 @@ function cardGenerator({id, name, height, weight, base_experience, stats, sprite
     let p6 = document.createElement("p");
     p6.innerText = "Hp: " + stats[0].base_stat;
 
-    let p_elements = [p1, p2, p3, p4, p5, p6];
-    p_elements.forEach(p => {
+    let pElements = [p1, p2, p3, p4, p5, p6];
+    pElements.forEach(p => {
         data.appendChild(p);
     })
 
@@ -57,7 +57,7 @@ function cardGenerator({id, name, height, weight, base_experience, stats, sprite
 
 function sortPokemon() {
     let option = document.getElementById("atrb").value;
-    all_pokemon.sort((a, b) => {
+    allPokemon.sort((a, b) => {
         switch (option) {
             case "2": {
                 return (parseInt(a.weight) - parseInt(b.weight)); // weight
@@ -71,30 +71,30 @@ function sortPokemon() {
         }
     });
     document.getElementById("card-container").innerHTML = "";
-    all_pokemon.forEach(pokemon => {
+    allPokemon.forEach(pokemon => {
         cardGenerator(pokemon);
     });
 }
 
 function searchPokemon() {
     let search = document.getElementsByTagName("input")[0].value;
-    let search_cards = all_pokemon.filter(pokemon => pokemon.name.startsWith(search));
+    let searchCards = allPokemon.filter(pokemon => pokemon.name.startsWith(search));
     document.getElementById("card-container").innerHTML = "";
-    search_cards.forEach(pokemon => {
+    searchCards.forEach(pokemon => {
         cardGenerator(pokemon);
     });
 }
 
-async function fetchPokemon(pokemon_url) {
-    let response = await fetch(pokemon_url);
-    pokemon_data = await response.json();
-    all_pokemon.push(pokemon_data);
-    cardGenerator(pokemon_data);
+async function fetchPokemon(pokemonUrl) {
+    let response = await fetch(pokemonUrl);
+    pokemonData = await response.json();
+    allPokemon.push(pokemonData);
+    cardGenerator(pokemonData);
     sortPokemon();
 }
 
-async function fetchData(base_url) {
-    let response = await fetch(base_url);
+async function fetchData(baseUrl) {
+    let response = await fetch(baseUrl);
     pokemons = await response.json();
     let results = pokemons.results;
     results.forEach(element => {
@@ -104,11 +104,11 @@ async function fetchData(base_url) {
 
 function generateURL() {
     offset += 20;
-    let new_url = "https://pokeapi.co/api/v2/pokemon?offset=" + offset + "&limit=20";
-    fetchData(new_url);
+    let newUrl = "https://pokeapi.co/api/v2/pokemon?offset=" + offset + "&limit=20";
+    fetchData(newUrl);
 }
 
-fetchData(base_url);
+fetchData(baseUrl);
 
 document.getElementById("b2").addEventListener("click", generateURL);
 let sel = document.getElementById("atrb");

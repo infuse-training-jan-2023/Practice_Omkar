@@ -33,9 +33,9 @@
     <script>
         function cardGenerator({id, name, height, weight, base_experience, stats, sprites, species, forms, moves}) {
             
-            let moves_names = [];
+            let movesNames = [];
             moves.forEach(move => {
-                moves_names.push(move.move.name);
+                movesNames.push(move.move.name);
             });
 
             let container = document.getElementsByTagName("body")[0];
@@ -81,27 +81,27 @@
             p14.innerText = "Moves: ";
             for (i = 0; i < 5; i++) {
                 if (i == 4) {
-                    p14.innerText += moves_names[i];
+                    p14.innerText += movesNames[i];
                     break;
                 }
-                p14.innerText += moves_names[i] + ", ";
+                p14.innerText += movesNames[i] + ", ";
             }
             let btn = document.createElement("button");
             btn.innerText = "Show More";
             btn.onclick = () => {
                 p14.innerText = "Moves: ";
-                for (i = 0; i < moves_names.length; i++) {
-                    if (i == moves_names.length - 1) {
-                        p14.innerText += moves_names[i];
+                for (i = 0; i < movesNames.length; i++) {
+                    if (i == movesNames.length - 1) {
+                        p14.innerText += movesNames[i];
                         break;
                     }
-                    p14.innerText += moves_names[i] + ", ";
+                    p14.innerText += movesNames[i] + ", ";
                 }
                 btn.style.visibility = "hidden";
             }
             
-            let p_elements = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14];
-            p_elements.forEach(p => {
+            let pElements = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14];
+            pElements.forEach(p => {
                 data.appendChild(p);
             })
             
@@ -121,9 +121,9 @@
         }
 
         async function fetchPokemon(url) {
-            let pokemon_data = await fetch(url);
-            pokemon_data = await pokemon_data.json();
-            cardGenerator(pokemon_data);
+            let response = await fetch(url);
+            pokemonData = await response.json();
+            cardGenerator(pokemonData);
         }
         
         let id = (window.location.href).split("?")[1];
