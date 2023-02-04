@@ -1,13 +1,13 @@
-let body = document.getElementsByTagName("body")[0];
+const body = document.getElementsByTagName("body")[0];
 const hours = document.getElementById("hr");
 const minutes = document.getElementById("min");
 const seconds = document.getElementById("sec");
 
 const displayDate = () => {
-    let now = new Date();
-    let hr = now.getHours();
-    let min = now.getMinutes();
-    let sec = now.getSeconds();
+    const now = new Date();
+    const min = now.getMinutes();
+    const hr = now.getHours();
+    const sec = now.getSeconds();
     if (hr < 10) {
         hr = "0" + hr;
     }
