@@ -30,9 +30,9 @@ function cardGenerator({id, name, height, weight, base_experience, stats, sprite
     p6.innerText = "Hp: " + stats[0].base_stat;
 
     let p_elements = [p1, p2, p3, p4, p5, p6];
-    for (let i = 0; i < p_elements.length; i++) {
-        data.appendChild(p_elements[i]);
-    }
+    p_elements.forEach(p => {
+        data.appendChild(p);
+    })
 
     card.appendChild(image);
     card.appendChild(data);
