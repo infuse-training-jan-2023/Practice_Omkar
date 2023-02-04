@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon API</title>
+    <link href="./index.css" rel="stylesheet" />
+    <script src="./index.js" defer ></script>
+</head>
+<body>
+    <main>
+        <div class="title">
+            CARDS
+        </div>
+        <div id="options">
+            <div id="sort">
+                <label for="atrb">Sort By:</label>
+                <select name="sort" id="atrb">
+                    <option value="1">Order</option>
+                    <option value="2">Weight</option>
+                    <option value="3">Base Experience</option>
+                </select>
+            </div>
+            <div id="search">
+                <input type="search" placeholder="Search..." />
+            </div>
+        </div>
+        <div id="card-container"></div>
+        <button id="b2">Show More</button>
+    </main>
+    <aside>
+        <div class="title">
+            DATA
+        </div>
+        <iframe name="more"></iframe>
+    </aside>
+</body>
+</html>

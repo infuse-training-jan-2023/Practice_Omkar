@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+button {
+    display: block;
+    margin: auto;
+    position: relative;
+    /* margin-top: 100px; */
+    top: 100px;
+}
+
+main {
+    width: 50%;
+    height: 50%;
+    border: 1px solid red;
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+div {
+    border: 1px solid red;
+    position: relative;
+}
+
+span {
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+    font-size: 10em;
+}
+
+.background {
+    background-color: black;
+    color: white;
+}

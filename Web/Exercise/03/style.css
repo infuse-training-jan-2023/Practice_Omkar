@@ -1,0 +1,173 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	display: grid;
+	height: 100vh;
+	grid-template-columns: 20% auto;
+}
+
+aside {
+	border-right: 1px solid rgb(205, 205, 205);
+	box-shadow: 10px 0px #888;
+}
+
+.um-user {
+	display: flex;
+}
+
+.um-logo {
+	padding: 16px 24px;
+	border-bottom: 1px solid rgb(205, 205, 205);
+	width: 100%;
+}
+
+.um-user img {
+	width: 40px;
+	margin-right: 10px;
+}
+
+.um-user-name {
+	color: blue;
+}
+
+.um-user-email {
+	font-size: x-small;
+}
+
+nav {
+	color: skyblue;
+}
+
+nav ul {
+	list-style: none;
+	border-bottom: 1px solid black;
+}
+
+nav li {
+	font-size: 20px;
+	padding-left: 10px;
+}
+
+nav li:hover {
+	background-color: skyblue;
+	color: white;
+	border-left: 5px solid darkblue;
+}
+
+nav span {
+	text-transform: capitalize;
+}
+
+main {
+	background-color: whitesmoke;
+	border: 1px solid black;
+	margin: 10px;
+	position: relative;
+	z-index: 1;
+}
+
+.test {
+	position: relative;
+	z-index: 10;
+}
+
+.test > .test-data {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+}
+
+/* .test-data:not(div) {
+	background-color: blue;
+} */
+
+.test-data > span:not([class]) {
+	background-color: black;
+	color: white;
+}
+
+.bi-x {
+	text-align: end;
+}
+
+.test-properties {
+	grid-column: 1 / 5;
+}
+
+.test-properties > span, .test-flowchart > span {
+	display: block;
+	background-color: blue;
+}
+
+form {
+	margin: 5px;
+	display: flex;
+}
+
+.details {
+	flex-grow: 3;
+}
+
+.description {
+	flex-grow: 4;
+	display: flex;
+}
+
+textarea {
+	flex-grow: 1;
+}
+
+.test-main {
+	grid-column: 1 / 5;
+	display: flex;
+}
+
+.test-flowchart {
+	flex-grow: 2;
+}
+
+.options {
+	font-size: 20px;
+	padding: 2px 0px 0px 5px;
+}
+
+.options i {
+	margin: 5px;
+}
+
+.bi-list-nested, .bi-toggle-on, .bi-arrows-angle-expand, .bi-clipboard {
+	border-right: 1px solid black;
+}
+
+.test-designer {
+	height: 460px;
+}
+
+.test-main .test-data {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	padding-left: 10px;
+}
+
+.test-variables, .test-parameters {
+	border: 1px solid black;
+	flex-grow: 1;
+}
+
+.test-variables > span, .test-parameters > span {
+	background-color: blue;
+	display: block;
+}
+
+.bi-plus {
+	display: block;
+	text-align: end;
+}
+
+.table-header {
+	border-bottom: 1px solid black;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Data</title>
+    <link href="./index.css" rel="stylesheet" />
+    <!-- <script src="./index.js" defer></script> -->
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .card {
+            border: 0px;
+            height: 100vh;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%,0%);
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function cardGenerator({id, name, height, weight, base_experience, stats, sprites, species, forms, moves}) {
+            
+            let movesNames = [];
+            moves.forEach(move => {
+                movesNames.push(move.move.name);
+            });
+
+            let container = document.getElementsByTagName("body")[0];
+            let card = document.createElement("div");
+            card.className = "card";
+
+            let image = document.createElement("div");
+            image.className = "image";
+            let img1 = document.createElement("img");
+            img1.src = sprites.front_default;
+            img1.alt = name;
+            image.appendChild(img1);
+
+            let data = document.createElement("div");
+            data.classList = "data";
+            let p1 = document.createElement("p");
+            p1.innerText = "ID: " + id;
+            let p2 = document.createElement("p");
+            p2.innerText = "Name: " + name;
+            let p3 = document.createElement("p");
+            p3.innerText = "Base Exp: " + base_experience;
+            let p4 = document.createElement("p");
+            p4.innerText = "Height: " + height;
+            let p5 = document.createElement("p");
+            p5.innerText = "Weight: " + weight;
+            let p6 = document.createElement("p");
+            p6.innerText = "Hp: " + stats[0].base_stat;
+            let p7 = document.createElement("p");
+            p7.innerText = "Attack: " + stats[1].base_stat;
+            let p8 = document.createElement("p");
+            p8.innerText = "Defense: " + stats[2].base_stat;
+            let p9 = document.createElement("p");
+            p9.innerText = "Special-Attack: " + stats[3].base_stat;
+            let p10 = document.createElement("p");
+            p10.innerText = "Special-Defense: " + stats[4].base_stat;
+            let p11 = document.createElement("p");
+            p11.innerText = "Speed: " + stats[5].base_stat;
+            let p12 = document.createElement("p");
+            p12.innerText = "Species: " + species.name;
+            let p13 = document.createElement("p");
+            p13.innerText = "Forms: " + forms[0].name;
+            let p14 = document.createElement("p");
+            p14.innerText = "Moves: ";
+            for (i = 0; i < 5; i++) {
+                if (i == 4) {
+                    p14.innerText += movesNames[i];
+                    break;
+                }
+                p14.innerText += movesNames[i] + ", ";
+            }
+            let btn = document.createElement("button");
+            btn.innerText = "Show More";
+            btn.onclick = () => {
+                p14.innerText = "Moves: ";
+                for (i = 0; i < movesNames.length; i++) {
+                    if (i == movesNames.length - 1) {
+                        p14.innerText += movesNames[i];
+                        break;
+                    }
+                    p14.innerText += movesNames[i] + ", ";
+                }
+                btn.style.visibility = "hidden";
+            }
+            
+            let pElements = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14];
+            pElements.forEach(p => {
+                data.appendChild(p);
+            })
+            
+            card.appendChild(image);
+            card.appendChild(data);
+            
+            card.appendChild(btn);
+            container.appendChild(card);
+
+            img1.addEventListener('mouseover', () => {
+                img1.src = sprites.back_default;
+            });
+
+            img1.addEventListener('mouseout', () => {
+                img1.src = sprites.front_default;
+            });
+        }
+
+        async function fetchPokemon(url) {
+            let response = await fetch(url);
+            pokemonData = await response.json();
+            cardGenerator(pokemonData);
+        }
+        
+        let id = (window.location.href).split("?")[1];
+        let url =  `https://pokeapi.co/api/v2/pokemon/${id}/`;
+        fetchPokemon(url);
+    </script>
+</body>
+</html>
