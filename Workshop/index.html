@@ -8,7 +8,9 @@
 	<link href="./index.css" rel="stylesheet" />
 </head>
 <body>
-	<form class="well form-horizontal" action="" method="post"  id="contact_form">
+	<button onclick="myFunction()">Click ME!</button>
+	<span></span>
+	<form action="" method="post" id="contact_form">
 		<fieldset>
 			<legend class="legend">Contact Us Today!</legend>
 			<div class="form-group">
@@ -113,5 +115,13 @@
 			</div>
 		</fieldset>
 	</form>
+	<script>
+		function myFunction() {
+			const span = document.getElementsByTagName("span")[0];
+			const btn = document.getElementsByTagName("button")[0];
+			span.innerText = "Fill the form!"
+			btn.remove();
+		}
+	</script>
 </body>
 </html>

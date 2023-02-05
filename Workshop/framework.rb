@@ -20,7 +20,7 @@ class Framework
 		begin
 			driver.get(get_url)
 		rescue
-			return 'Error'
+			return 'Error - URL doesnt exist'
 		end
 	end
 
@@ -28,7 +28,7 @@ class Framework
 		begin
 			driver.title
 		rescue
-			return 'Error'
+			return 'Error - Title not found'
 		end
 	end
 
@@ -36,7 +36,23 @@ class Framework
 		begin	
 			driver.manage.window.maximize
 		rescue
-			return 'Error'
+			return 'Error - Could not maximize window'
+		end
+	end
+
+	def get_element(obj, parent=@driver)
+		begin
+			parent.find_element(obj)
+		rescue
+			return 'Error - No element found'
+		end
+	end
+
+	def get_elements(obj, parent=@driver)
+		begin
+			parent.find_elements(obj)
+		rescue
+			return 'Error - No element found'
 		end
 	end
 
@@ -44,7 +60,7 @@ class Framework
 		begin
 			parent.find_element(:id, id_value)
 		rescue
-			return 'Error'
+			return 'Error - No element with given ID found'
 		end
 	end
 
@@ -52,7 +68,7 @@ class Framework
 		begin	
 			parent.find_elements(:class, class_name)
 		rescue
-			return 'Error'
+			return 'Error - No element with given class found'
 		end
 	end
 
@@ -60,7 +76,7 @@ class Framework
 		begin	
 			parent.find_elements(:name, name_value)
 		rescue
-			return 'Error'
+			return 'Error - No element with given name found'
 		end
 	end
 
@@ -68,7 +84,7 @@ class Framework
 		begin	
 			parent.find_elements(:tag_name, tag_name)
 		rescue
-			return 'Error'
+			return 'Error - No element with given tag name found'
 		end
 	end
 
@@ -76,7 +92,7 @@ class Framework
 		begin	
 			parent.find_element(:xpath, xpath_value)
 		rescue
-			return 'Error'
+			return 'Error - No element with given xpath found'
 		end
 	end
 
@@ -84,7 +100,7 @@ class Framework
 		begin	
 			element.click
 		rescue
-			return 'Error'
+			return 'Error - Could not perform click on given element'
 		end
 	end
 
@@ -96,11 +112,19 @@ class Framework
 		end
 	end
 
+	def implicit_wait_for(sec_value)
+		begin	
+			driver.manage.timeouts.implicit_wait = sec_value
+		rescue
+			return 'Error - Could not implicitly wait for given amount of time'
+		end
+	end
+
 	def send_keys_to(element, keys)
 		begin	
 			element.send_keys(keys)
 		rescue
-			return 'Error'
+			return 'Error - Could not send keys to given element'
 		end
 	end
 
@@ -108,7 +132,7 @@ class Framework
 		begin	
 			driver.execute_script("window.scrollTo(0, #{num})")
 		rescue
-			return 'Error'
+			return 'Error - Could not perform scroll function'
 		end
 	end
 
@@ -116,7 +140,7 @@ class Framework
 		begin	
 			element.text
 		rescue
-			return 'Error'
+			return 'Error - No text element found'
 		end
 	end
 
@@ -124,7 +148,7 @@ class Framework
 		begin	
 			driver.quit
 		rescue
-			return 'Error'
+			return 'Error - Could not close browser'
 		end
 	end
 end
