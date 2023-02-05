@@ -8,13 +8,13 @@ class SubArray:
 	def check_sum(self) -> str:
 		if (len(self.arr) == 0):
 			return("Invalid array input")
-		sum_dict = []
+		sum_list = []
 		sum = 0
 		for i in range(len(self.arr)):
 			sum += self.arr[i]
-			sum_dict.append(sum)
+			sum_list.append(sum)
 			if (sum == self.k):
 				self.count += 1
-			if (sum - self.k) in sum_dict:
-				self.count += sum_dict.count(sum - self.k)
+			if (sum - self.k) in sum_list:
+				self.count += sum_list.count(sum - self.k)
 		return("Output = " + str(self.count))
