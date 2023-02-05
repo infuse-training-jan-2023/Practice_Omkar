@@ -1,4 +1,4 @@
-class ArrayTasks:
+class ArrayManipulation:
 	def __init__(self, arr) -> None:
 		self.arr = arr
 
