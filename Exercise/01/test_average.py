@@ -1,7 +1,7 @@
 from average import SerialAverage
 import unittest
 
-class Test_Average(unittest.TestCase):
+class TestAverage(unittest.TestCase):
 	def test_instance_of_SerialAverage(self):
 		obj = SerialAverage("002-00.00-08.00")
 		assert(isinstance(obj, SerialAverage))
