@@ -1,6 +1,6 @@
-from subarray import SubArray
+from Exercise_04.subarray import SubArray
 import unittest
-from data import arr, k
+from Exercise_04.data import arr, k
 
 class TestSubArray(unittest.TestCase):
 	def test_instance_of_Subarray(self):

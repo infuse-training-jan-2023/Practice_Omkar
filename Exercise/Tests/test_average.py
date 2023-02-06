@@ -1,4 +1,4 @@
-from average import SerialAverage
+from Exercise_01.average import SerialAverage
 import unittest
 
 class TestAverage(unittest.TestCase):
