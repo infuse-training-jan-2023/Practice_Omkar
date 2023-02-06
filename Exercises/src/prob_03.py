@@ -11,7 +11,7 @@ def welcome():
 @app.route('/validate/<int:num>', methods = ['GET'])
 def validate(num):
 	try:
-		if (num < 0) or (num > 200):
+		if (num < 1) or (num > 200):
 			raise TypeError("Invalid input")
 		url = "https://jsonplaceholder.typicode.com/todos/" + str(num)
 		res = requests.get(url)
@@ -23,4 +23,4 @@ def validate(num):
 		return Response("{'Error': 'Invalid input'}", mimetype='application/json', status=404)
 
 if __name__ == '__main__':
-	app.run(debug = True, host='0.0.0.0', port=5003)
+	app.run(debug = True, host='0.0.0.0', port=5000)

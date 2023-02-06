@@ -16,7 +16,7 @@ def validate(password):
 		return Response(output, mimetype='application/json', status=200)
 	else:
 		output = "{'Password' : 'Not Valid'}"
-		return Response(output, mimetype='application/json', status=500)
+		return Response(output, mimetype='application/json', status=400)
 
 if __name__ == '__main__':
-	app.run(debug = True, host='0.0.0.0', port=5002)
+	app.run(debug = True, host='0.0.0.0', port=5000)
