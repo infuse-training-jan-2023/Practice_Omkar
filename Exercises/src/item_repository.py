@@ -93,7 +93,6 @@ class ItemRepository:
 			if update[2] is not None:
 				query += (" reminder = " + str(update[2]))
 			query += (" WHERE id = " + str(id))
-			print(query)
 			insert_cursor = c.execute(query)
 			conn.commit()
 			insert_cursor = ItemRepository.get_item(id)
