@@ -20,7 +20,7 @@ class Framework
 		begin
 			driver.get(get_url)
 		rescue
-			return 'Error - URL doesnt exist'
+			return 'Error - Could not fetch URL'
 		end
 	end
 
@@ -56,45 +56,45 @@ class Framework
 		end
 	end
 
-	def find_element_by_id(id_value, parent=@driver)
-		begin
-			parent.find_element(:id, id_value)
-		rescue
-			return 'Error - No element with given ID found'
-		end
-	end
+	# def find_element_by_id(id_value, parent=@driver)
+	# 	begin
+	# 		parent.find_element(:id, id_value)
+	# 	rescue
+	# 		return 'Error - No element with given ID found'
+	# 	end
+	# end
 
-	def find_elements_by_class(class_name, parent=@driver)
-		begin	
-			parent.find_elements(:class, class_name)
-		rescue
-			return 'Error - No element with given class found'
-		end
-	end
+	# def find_elements_by_class(class_name, parent=@driver)
+	# 	begin	
+	# 		parent.find_elements(:class, class_name)
+	# 	rescue
+	# 		return 'Error - No element with given class found'
+	# 	end
+	# end
 
-	def find_elements_by_name(name_value, parent=@driver)
-		begin	
-			parent.find_elements(:name, name_value)
-		rescue
-			return 'Error - No element with given name found'
-		end
-	end
+	# def find_elements_by_name(name_value, parent=@driver)
+	# 	begin	
+	# 		parent.find_elements(:name, name_value)
+	# 	rescue
+	# 		return 'Error - No element with given name found'
+	# 	end
+	# end
 
-	def find_elements_by_tag_name(tag_name, parent=@driver)
-		begin	
-			parent.find_elements(:tag_name, tag_name)
-		rescue
-			return 'Error - No element with given tag name found'
-		end
-	end
+	# def find_elements_by_tag_name(tag_name, parent=@driver)
+	# 	begin	
+	# 		parent.find_elements(:tag_name, tag_name)
+	# 	rescue
+	# 		return 'Error - No element with given tag name found'
+	# 	end
+	# end
 
-	def find_element_by_xpath(xpath_value, parent=@driver)
-		begin	
-			parent.find_element(:xpath, xpath_value)
-		rescue
-			return 'Error - No element with given xpath found'
-		end
-	end
+	# def find_element_by_xpath(xpath_value, parent=@driver)
+	# 	begin	
+	# 		parent.find_element(:xpath, xpath_value)
+	# 	rescue
+	# 		return 'Error - No element with given xpath found'
+	# 	end
+	# end
 
 	def click_element(element)
 		begin	

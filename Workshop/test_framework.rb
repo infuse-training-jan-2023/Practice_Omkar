@@ -5,7 +5,7 @@ Selenium::WebDriver::Chrome.driver_path = "/opt/chromedriver-109.0.5414.74/chrom
 
 class Test_Website < Test::Unit::TestCase
 
-	def test_make_object
+	def test_make_framework
 		framework = Framework.new()
         assert framework.instance_of? Framework
     end
@@ -22,7 +22,7 @@ class Test_Website < Test::Unit::TestCase
 		framework = Framework.new()
 		driver = Selenium::WebDriver.for :chrome
 		driver.get("file:///app/index.html")
-		assert_equal("", (framework.getelement({:id 'name'})).text)
+		assert_equal("", (framework.getelement({:id => 'name'})).text)
 		framework.close_browser()
 	end
 
@@ -30,7 +30,7 @@ class Test_Website < Test::Unit::TestCase
 		framework = Framework.new()
 		driver = Selenium::WebDriver.for :chrome
 		driver.get("file:///app/index.html")
-		assert_equal("Error - No element found", (framework.getelement({:id 'name'})).text)
+		assert_equal("Error - No element found", (framework.getelement({:id => 'name'})).text)
 		framework.close_browser()
 	end
 
