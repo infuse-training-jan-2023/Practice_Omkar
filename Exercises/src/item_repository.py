@@ -83,9 +83,13 @@ class ItemRepository:
 				raise TypeError("Invalid ID")
 			query = "UPDATE items SET "
 			if update[0] is not None:
-				query += ("item = '" + str(update[0]) + "',")
+				query += ("item = '" + str(update[0]) + "'")
+				if (update[1] is not None) or (update[2] is not None):
+					query += ","
 			if update[1] is not None:
-				query += (" status = '" + str(update[1]) + "',")
+				query += (" status = '" + str(update[1]) + "'")
+				if update[2] is not None:
+					query += ","
 			if update[2] is not None:
 				query += (" reminder = " + str(update[2]))
 			query += (" WHERE id = " + str(id))
