@@ -1,11 +1,14 @@
 FROM ruby:2.7 as base
+
 COPY . /app
+
 WORKDIR /app
+
 ADD Gemfile .
+
 RUN bundle install --gemfile Gemfile
 
 ENV CHROMEDRIVER_VERSION 109.0.5414.74
-ENV CHROMEDRIVER_PATH /opt/chromedriver-$CHROMEDRIVER_VERSION/chromedriver
 
 RUN mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION 
 RUN curl -sS -o /opt/chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
@@ -21,7 +24,7 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 	rm -rf /var/lib/apt/lists/*
 
 FROM base as test
-CMD ["ruby", "test_framework.rb"]
+CMD ["ruby", "unit_test.rb"]
 
 FROM base as run
-CMD ["ruby", "main.rb"]
+CMD ["ruby", "automate.rb"]

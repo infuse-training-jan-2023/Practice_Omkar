@@ -1,19 +1,13 @@
 require 'selenium-webdriver'
+require_relative 'driver'
 
 
 class Framework
 	
 	attr_accessor :driver
 	
-	def initialize
-		Selenium::WebDriver::Chrome.driver_path = "/opt/chromedriver-109.0.5414.74/chromedriver"
-		options = Selenium::WebDriver::Chrome::Options.new
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--window-size=1920,1080")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--disable-dev-shm-usage")
-        @driver = Selenium::WebDriver.for :chrome, options: options
+	def initialize(driver_new)
+		@driver = driver_new
 	end
 
 	def open_browser(get_url)
@@ -41,60 +35,20 @@ class Framework
 	end
 
 	def get_element(obj, parent=@driver)
-		begin
-			parent.find_element(obj)
-		rescue
-			return 'Error - No element found'
+		child = parent.find_element(obj)
+		if child != nil
+			return child
 		end
+		return 'Error - No elements found'
 	end
 
 	def get_elements(obj, parent=@driver)
-		begin
-			parent.find_elements(obj)
-		rescue
-			return 'Error - No element found'
+		children = parent.find_elements(obj)
+		if children.length() > 0
+			return children
 		end
+		return 'Error - No elements found'
 	end
-
-	# def find_element_by_id(id_value, parent=@driver)
-	# 	begin
-	# 		parent.find_element(:id, id_value)
-	# 	rescue
-	# 		return 'Error - No element with given ID found'
-	# 	end
-	# end
-
-	# def find_elements_by_class(class_name, parent=@driver)
-	# 	begin	
-	# 		parent.find_elements(:class, class_name)
-	# 	rescue
-	# 		return 'Error - No element with given class found'
-	# 	end
-	# end
-
-	# def find_elements_by_name(name_value, parent=@driver)
-	# 	begin	
-	# 		parent.find_elements(:name, name_value)
-	# 	rescue
-	# 		return 'Error - No element with given name found'
-	# 	end
-	# end
-
-	# def find_elements_by_tag_name(tag_name, parent=@driver)
-	# 	begin	
-	# 		parent.find_elements(:tag_name, tag_name)
-	# 	rescue
-	# 		return 'Error - No element with given tag name found'
-	# 	end
-	# end
-
-	# def find_element_by_xpath(xpath_value, parent=@driver)
-	# 	begin	
-	# 		parent.find_element(:xpath, xpath_value)
-	# 	rescue
-	# 		return 'Error - No element with given xpath found'
-	# 	end
-	# end
 
 	def click_element(element)
 		begin	
@@ -108,7 +62,7 @@ class Framework
 		begin	
 			sleep(sec_value)
 		rescue
-			return 'Error'
+			return 'Error - Could not wait for given amount of time'
 		end
 	end
 
