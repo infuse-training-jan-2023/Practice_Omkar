@@ -4,11 +4,11 @@ pipeline {
     agent any
     
     stages {
-        stage('get-data') {
+        stage('fetch-data') {
             steps {
                 script {
-                    def data_con = new URL("https://jsonplaceholder.typicode.com/todos").openConnection();
-                    def data = data_con.getInputStream().getText()
+                    def connection = new URL("https://jsonplaceholder.typicode.com/todos").openConnection();
+                    def data = connection.getInputStream().getText()
                     def jsonObj = new groovy.json.JsonSlurperClassic().parseText(data)
                     for(task in jsonObj) {
                         if(task.completed == false){
