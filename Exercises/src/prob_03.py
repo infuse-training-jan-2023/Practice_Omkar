@@ -16,9 +16,12 @@ def validate(num):
 		url = "https://jsonplaceholder.typicode.com/todos/" + str(num)
 		res = requests.get(url)
 		data = res.json()
+		output = json.dumps(data)
+		stat = 200
 		if res == {}:
-			return Response("{'Error': 'Error fetching item'}", mimetype='application/json', status=404)
-		return Response(json.dumps(data), mimetype='application/json', status=500)
+			output = "{'Error': 'Error fetching item'}"
+			stat = 404
+		return Response(output, mimetype='application/json', status=stat)
 	except:
 		return Response("{'Error': 'Invalid input'}", mimetype='application/json', status=404)
 
