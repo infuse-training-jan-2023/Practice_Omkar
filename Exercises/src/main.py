@@ -1,10 +1,13 @@
 from flask import Flask, Response, request
 from item_actions import ItemActions
 from item_repository import ItemRepository
+from user_actions import UserActions
+from user_repository import UserRepository
 import json
 
 app = Flask(__name__)
 item_actions = ItemActions()
+user_actions = UserActions()
 item_repository = ItemRepository()
 
 @app.route('/', methods = ['GET'])
@@ -43,20 +46,7 @@ def delete_item(id):
 @app.route('/item/<int:id>', methods=['PUT'])
 def update_item(id):
 	request_data = request.get_json()
-	try:
-		item = request_data['item']
-	except:
-		item = None
-	try:
-		status = request_data['status']
-	except:
-		status = None
-	try:
-		reminder = request_data['reminder']
-	except:
-		reminder = None
-	update = [item, status, reminder]
-	updated_item = item_actions.update_item(id, update)
+	updated_item = item_actions.update_item(id, request_data)
 	if updated_item == {}:
 		return Response("{'error': 'Error updating the item'}", mimetype='application/json', status=404)
 	return Response(json.dumps(updated_item), mimetype='application/json', status=201)
@@ -66,7 +56,7 @@ def add_user():
 	request_data = request.get_json()
 	name = request_data["name"]
 	age = request_data["age"]
-	added_user = item_actions.add_user(name, age)
+	added_user = user_actions.add_user(name, age)
 	if added_user == {}:
 		return Response("{'error': 'Error addding the item'}", mimetype='application/json', status=500)
 	return Response(json.dumps(added_user), mimetype='application/json', status=201)

@@ -1,4 +1,5 @@
 from item_repository import ItemRepository
+import csv
 
 class ItemActions:
 	def __init__(self) -> None:
@@ -24,13 +25,12 @@ class ItemActions:
 		try:
 			item = self.item_repo.get_item(id)
 			res = []
-			for x in item:
-				res.append({
-					'id': x[0],
-					'item': x[1],
-					'status': x[2],
-					'reminder': x[3]
-				})
+			res.append({
+				'id': item[0],
+				'item': item[1],
+				'status': item[2],
+				'reminder': item[3]
+			})
 			return res
 		except Exception as e:
 			print(e)
@@ -47,14 +47,21 @@ class ItemActions:
 	def delete_item(self, id):
 		try:
 			item = self.item_repo.delete_item(id)
-			return item
+			res = []
+			res.append({
+				'id': item[0],
+				'item': item[1],
+				'status': item[2],
+				'reminder': item[3],
+			})
+			return res
 		except Exception as e:
 			print(e)
 			return {}
 	
-	def update_item(self, id, update):
+	def update_item(self, id, request_data):
 		try:
-			item = self.item_repo.update_item(id, update)
+			item = self.item_repo.update_item(id, request_data)
 			res = []
 			for x in item:
 				res.append({
@@ -68,18 +75,27 @@ class ItemActions:
 			print(e)
 			return {}
 	
-	def add_user(self, name, age):
-		try:
-			item = self.item_repo.add_user(name, age)
-			return item
-		except Exception as e:
-			print(e)
-			return {}
-	
 	def save_data(self):
 		try:
-			item = self.item_repo.save_data()
-			return item
+			rows = self.item_repo.get_all_items()
+			fields = ['id', 'item', 'status', 'reminder']
+			filename = "data.csv"
+			res = []
+			for row in rows:
+				res.append({
+					'id': row[0],
+					'item': row[1],
+					'status': row[2],
+					'reminder': row[3]
+				})
+			with open(filename, "w") as file:
+				writer = csv.DictWriter(file, fieldnames = fields)
+				writer.writeheader()
+				writer.writerows(res)
+			return {
+				'filename': filename,
+				'status': 'Data Saved'
+			}
 		except Exception as e:
 			print(e)
 			return {}
