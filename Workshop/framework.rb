@@ -35,19 +35,20 @@ class Framework
 	end
 
 	def get_element(obj, parent=@driver)
-		child = parent.find_element(obj)
-		if child != nil
-			return child
+		begin
+			child = parent.find_element(obj)
+		rescue
+			return 'Error - No element found'
 		end
-		return 'Error - No elements found'
 	end
 
 	def get_elements(obj, parent=@driver)
 		children = parent.find_elements(obj)
-		if children.length() > 0
+		if children == []
+			return 'Error - No elements found'
+		else
 			return children
 		end
-		return 'Error - No elements found'
 	end
 
 	def click_element(element)

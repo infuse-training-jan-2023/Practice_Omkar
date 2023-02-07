@@ -1,12 +1,14 @@
 require 'selenium-webdriver'
-require_relative "framework"
+require_relative 'framework'
+require_relative 'driver'
 
 class Automate
 	
 	attr_accessor :framework
 
 	def initialize()
-		@framework = Framework.new
+		driver = Driver.new.driver_init()
+		@framework = Framework.new(driver)
 	end
 
 	def open_website()

@@ -1,11 +1,7 @@
 FROM ruby:2.7 as base
-
 COPY . /app
-
 WORKDIR /app
-
 ADD Gemfile .
-
 RUN bundle install --gemfile Gemfile
 
 ENV CHROMEDRIVER_VERSION 109.0.5414.74
@@ -24,7 +20,7 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 	rm -rf /var/lib/apt/lists/*
 
 FROM base as test
-CMD ["ruby", "unit_test.rb"]
+CMD ["ruby", "test_framework.rb"]
 
 FROM base as run
-CMD ["ruby", "automate.rb"]
+CMD ["ruby", "main.rb"]
