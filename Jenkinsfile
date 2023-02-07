@@ -4,18 +4,23 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat 'ruby test_unit.rb'
+                echo env.STAGE_NAME
             }
         }
         stage('test') {
             steps {
+                bat 'ruby Test_02.rb'
+            }
+        }
+        stage('merge') {
+            steps {
                 bat '''
                     git switch jenkins/ruby
-                    git pull origin jenkins/ruby
+                    git pull
                     git switch jenkins/ruby-1
-                    git pull jenkins/ruby-1
+                    git pull
                     git switch jenkins/ruby
-                    git merge jenkins/ruby-1
+                    git merge --strategy-option theirs --no-edit jenkins/ruby-1
                     git push origin jenkins/ruby
                 '''
             }
