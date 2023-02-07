@@ -3,23 +3,24 @@ require 'selenium-webdriver'
 Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
 
 class Columns
-	def get_column(j)
+	def get_column(url, col_val)
 		driver = Selenium::WebDriver.for :chrome
-		driver.get("https://computer-database.gatling.io/computers")
+		driver.get(url)
 		thead = driver.find_element(tag_name: 'thead')
-		tr = thead.find_element(tag_name: 'tr')
-		ths = tr.find_elements(tag_name: 'th')
-		puts ths[j-1].text
+		trow = thead.find_element(tag_name: 'tr')
+		theads = trow.find_elements(tag_name: 'th')
+		puts theads[col_val-1].text
 		tbody = driver.find_element(tag_name: 'tbody')
-		trs = tbody.find_elements(tag_name: 'tr')
-		trs.each{ |tr|
-			tds = tr.find_elements(tag_name: 'td')
-			puts tds[j-1].text
+		trows = tbody.find_elements(tag_name: 'tr')
+		trows.each{ |trow|
+			tdata = trow.find_elements(tag_name: 'td')
+			puts tdata[col_val-1].text
 		}
 		driver.quit
 	end
 end
 
 columns = Columns.new
+url = "https://computer-database.gatling.io/computers"
 col_val = 1
-columns.get_column(col_val)
+columns.get_column(url, col_val)
