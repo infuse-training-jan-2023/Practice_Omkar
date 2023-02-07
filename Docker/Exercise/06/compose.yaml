@@ -1,0 +1,22 @@
+services:
+  server:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3001:3001"
+
+  client:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    environment:
+      - WATCHPACK_POLLING=true

@@ -1,0 +1,24 @@
+#1
+docker build -t omkar/prob01 .
+docker run --name prob1 omkar/prob01
+
+#2
+docker build -t omkar/prob02 .
+docker run --name prob2 omkar/prob02
+
+
+#3
+docker build -t omkar/prob03 .
+docker run --name prob3 omkar/prob03
+
+
+#4
+docker build -t omkar/prob04 .
+docker run --name prob4 omkar/prob04
+
+#5
+docker build -t omkar/prob05 .
+docker run --name prob5 omkar/prob05
+
+#6
+docker-compose up --build
