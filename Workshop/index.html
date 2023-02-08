@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="./index.css" rel="stylesheet" />
+</head>
+<body>
+	<button id="btn" onclick="myFunction()">Click ME!</button>
+	<span></span>
+	<form action="" method="post" id="contact_form">
+		<fieldset>
+			<legend class="legend">Contact Us Today!</legend>
+			<div class="form-group">
+				<label class="col-md-4 control-label">Name</label>  
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input id="name"  name="name" placeholder="First Name" class="form-control"  type="text">
+					</div>
+				</div>
+			</div>
+	
+			<div class="form-group">
+	  			<label class="col-md-4 control-label">E-Mail</label>  
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+	  					<input id="email" name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+					</div>
+	  			</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label">Phone Number</label>  
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+						<input id="phone" name="phone" placeholder="(845)555-1212" class="form-control" type="text">
+					</div>
+				</div>
+			</div>
+		  
+			<div class="form-group">
+				<label class="col-md-4 control-label">City</label>  
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+						<input id="city" name="city" placeholder="city" class="form-control"  type="text">
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group"> 
+				<label class="col-md-4 control-label">Gender</label>
+				<div class="col-md-4 selectContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+						<select id="gender" name="gender" class="form-control selectpicker">
+							<option value="1">Male</option>
+							<option value="2">Female</option>
+							<option value="3">Others</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label">Pin Code</label>  
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+						<input id="zip" name="zip" placeholder="Zip Code" class="form-control"  type="text">
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label">Website or domain name</label>  
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+						<input id="website" name="website" placeholder="Website or domain name" class="form-control" type="text">
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label">Do you have hosting?</label>
+				<div class="col-md-4">
+					<div id="radio" class="radio">
+						<input type="radio" name="hosting" value="yes" /> Yes
+						<input type="radio" name="hosting" value="no" /> No
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label">Project Description</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+						<textarea id="comment" class="form-control" name="comment" placeholder="Project Description"></textarea>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-4 control-label"></label>
+				<div class="col-md-4">
+					<input id="submit" type="submit" class="btn btn-warning" value="Submit"></input>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+	<script>
+		function myFunction() {
+			const span = document.getElementsByTagName("span")[0];
+			const btn = document.getElementsByTagName("button")[0];
+			span.innerText = "Fill the form!"
+			btn.remove();
+		}
+	</script>
+</body>
+</html>
