@@ -2,6 +2,8 @@ require 'selenium-webdriver'
 
 class Driver
 	def driver_init()
+        # Selenium::WebDriver::Chrome.driver_path = "C:\\Users\\TURBO\\Desktop\\OMKAR\\PROGRAMMING\\Infuse\\Selenium\\chromedriver.exe"
+        # driver = Selenium::WebDriver.for :chrome
 		Selenium::WebDriver::Chrome.driver_path = "/opt/chromedriver-109.0.5414.74/chromedriver"
 		options = Selenium::WebDriver::Chrome::Options.new
         options.add_argument("--headless")
