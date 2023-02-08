@@ -1,0 +1,22 @@
+import groovy.json.JsonSlurper
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('fetch-data') {
+            steps {
+                script {
+                    def connection = new URL("https://jsonplaceholder.typicode.com/todos").openConnection();
+                    def data = connection.getInputStream().getText()
+                    def jsonObj = new groovy.json.JsonSlurperClassic().parseText(data)
+                    for(task in jsonObj) {
+                        if(task.completed == false){
+                            println(task)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
