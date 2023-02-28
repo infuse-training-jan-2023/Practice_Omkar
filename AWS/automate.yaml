@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  AWS CloudFormation to automate storing logs in S3 when Lambda function invoked.
+
+Parameters:
+  apiGatewayStageName:
+    Default: call
+    Type: String
+  apiGatewayHTTPMethod:
+    Default: ANY
+    Type: String
+
+Resources:
+  LogGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: rest-api-gateway
+
+  LogMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref LogGateway
+      ResourceId: !GetAtt LogGateway.RootResourceId
+      HttpMethod: ANY
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub
+          - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations
+          - LambdaArn: !GetAtt MainLambda.Arn
+
+  ApiGatewayDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - LogMethod
+    Properties:
+      RestApiId: !Ref LogGateway
+      StageName: call
+
+  MainLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: LambdaFunctionPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:*
+                  - s3:*
+                Resource: "*"
+
+  MainLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda_function.py
+      Handler: lambda_function.lambda_handler
+      Role: !GetAtt MainLambdaExecutionRole.Arn
+      Runtime: python3.9
+      Timeout: 50
+
+  ApiGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: !GetAtt MainLambda.Arn
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${LogGateway}/${apiGatewayStageName}/${apiGatewayHTTPMethod}/
+
+Outputs:
+  LambdaFunctionName:
+    Value: !GetAtt MainLambda.Arn
+  ApiGatewayUrl:
+    Value: !Sub "https://${LogGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayStageName}"
