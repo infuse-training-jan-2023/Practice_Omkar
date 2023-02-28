@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
 Description: >
   AWS CloudFormation to automate storing logs in S3 when Lambda function invoked.
 
@@ -11,16 +12,16 @@ Parameters:
     Type: String
 
 Resources:
-  ApiGatewayRestApi:
+  LogGateway:
     Type: AWS::ApiGateway::RestApi
     Properties:
-      Name: test-api-gateway
+      Name: rest-api-gateway
 
-  ApiGatewayMethod:
+  LogMethod:
     Type: AWS::ApiGateway::Method
     Properties:
-      RestApiId: !Ref ApiGatewayRestApi
-      ResourceId: !GetAtt ApiGatewayRestApi.RootResourceId
+      RestApiId: !Ref LogGateway
+      ResourceId: !GetAtt LogGateway.RootResourceId
       HttpMethod: ANY
       AuthorizationType: NONE
       Integration:
@@ -28,34 +29,17 @@ Resources:
         IntegrationHttpMethod: POST
         Uri: !Sub
           - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaArn}/invocations
-          - LambdaArn: !GetAtt Lambda.Arn
+          - LambdaArn: !GetAtt MainLambda.Arn
 
   ApiGatewayDeployment:
     Type: AWS::ApiGateway::Deployment
     DependsOn:
-      - ApiGatewayMethod
+      - LogMethod
     Properties:
-      RestApiId: !Ref ApiGatewayRestApi
+      RestApiId: !Ref LogGateway
       StageName: call
 
-  Lambda:
-    Type: AWS::Lambda::Function
-    Properties:
-      Code: lambda/
-      Handler: lambda_function.lambda_handler
-      Role: !GetAtt LambdaExecutionRole.Arn
-      Runtime: python3.9
-      Timeout: 50
-
-  ApiGatewayPermission:
-    Type: AWS::Lambda::Permission
-    Properties:
-      Action: lambda:InvokeFunction
-      Principal: apigateway.amazonaws.com
-      FunctionName: !GetAtt Lambda.Arn
-      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGatewayRestApi}/${apiGatewayStageName}/${apiGatewayHTTPMethod}/
-
-  LambdaExecutionRole:
+  MainLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -79,8 +63,25 @@ Resources:
                   - s3:*
                 Resource: "*"
 
+  MainLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda_function.py
+      Handler: lambda_function.lambda_handler
+      Role: !GetAtt MainLambdaExecutionRole.Arn
+      Runtime: python3.9
+      Timeout: 50
+
+  ApiGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      FunctionName: !GetAtt MainLambda.Arn
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${LogGateway}/${apiGatewayStageName}/${apiGatewayHTTPMethod}/
+
 Outputs:
   LambdaFunctionName:
-    Value: !GetAtt Lambda.Arn
+    Value: !GetAtt MainLambda.Arn
   ApiGatewayUrl:
-    Value: !Sub "https://${ApiGatewayRestApi}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayStageName}"
+    Value: !Sub "https://${LogGateway}.execute-api.${AWS::Region}.amazonaws.com/${apiGatewayStageName}"
